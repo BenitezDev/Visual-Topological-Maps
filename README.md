@@ -114,10 +114,9 @@ Como vemos en la <a href="#figura-5-comparativa-de-positivos">Figura 5</a>, para
 Sumado a eso, tenemos que tener en cuenta que al trabajar en un entorno simulado los matices de sombras son muy pequeños, lo que acentúa el error en la escala de grises, y por tanto, como podemos ver en los histogramas medios de los landmark que más se confunden entre sí aparecen picos muy parecidos. Se muestran a continuación los histogramas de los landmarks que más se confunden entre sí, más en concreto, el de la izquierda se confunde con el de su respectiva derecha (2 con 5 y 7 con 6):
 
 
+<img src="https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_2.png" width="400"> <img src="https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_5.png" width="400">
+<img src="https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_7.png" width="400"> <img src="https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_6.png" width="400">
 
-![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_2.png)![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_5.png)
-
-![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_7.png)![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_8.png)
 
 Se ve cómo ambos histogramas son sustancialmente parecidos, pudiendo provocar falsos positivos en el reconocedor. En caso del landmark 7, que se confunde con el 6, pese a que en la prueba estática no fallaba, vemos que en la prueba dinámica si presenta un alto porcentaje de error, debido a que estos dos landmarks corresponden al inicio y final de un pasillo, donde en la prueba dinámica, las imágenes de posiciones intermedias tienen histogramas de poca diferencia entre ambos. A pesar de esto, hemos conseguido obtener resultados razonablemente buenos, estando por encima de un porcentaje de acierto del 80 % en todos los landmarks excepto el landmark 2 y 7 debido a los problemas comentados anteriormente.
 
@@ -177,10 +176,8 @@ Para completar nuestros resultados, de la misma manera que el caso anterior adju
 ![Prueba dinámica en RGB](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/media/demo_color.gif)
 > Prueba dinámica en RGB. Ver en <a href="https://youtu.be/Bi1DMtkpbro">Youtube</a>
 
-
-![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/color_average_histogram/average_histogram_landmark_2.png)    ![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/color_average_histogram/average_histogram_landmark_5.png)
-
-![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/color_average_histogram/average_histogram_landmark_7.png)    ![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/color_average_histogram/average_histogram_landmark_6.png)
+<img src="https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/color_average_histogram/average_histogram_landmark_2.png" width="400"> <img src="https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/color_average_histogram/average_histogram_landmark_5.png" width="400"> 
+<img src="https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/color_average_histogram/average_histogram_landmark_7.png" width="400"> <img src="https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/color_average_histogram/average_histogram_landmark_6.png" width="400"> 
 
 
 ### 3.2 Redes neuronales
