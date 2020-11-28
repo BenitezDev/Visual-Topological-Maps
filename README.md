@@ -115,9 +115,9 @@ Sumado a eso, tenemos que tener en cuenta que al trabajar en un entorno simulado
 
 
 
-![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_2.png)    ![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_5.png)
+![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_2.png)![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_5.png)
 
-![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_7.png)    ![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_8.png)
+![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_7.png)![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_8.png)
 
 Se ve cómo ambos histogramas son sustancialmente parecidos, pudiendo provocar falsos positivos en el reconocedor. En caso del landmark 7, que se confunde con el 6, pese a que en la prueba estática no fallaba, vemos que en la prueba dinámica si presenta un alto porcentaje de error, debido a que estos dos landmarks corresponden al inicio y final de un pasillo, donde en la prueba dinámica, las imágenes de posiciones intermedias tienen histogramas de poca diferencia entre ambos. A pesar de esto, hemos conseguido obtener resultados razonablemente buenos, estando por encima de un porcentaje de acierto del 80 % en todos los landmarks excepto el landmark 2 y 7 debido a los problemas comentados anteriormente.
 
