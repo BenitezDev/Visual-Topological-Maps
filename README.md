@@ -23,7 +23,7 @@ En primer lugar, para poder llevar a cabo todo el proyecto, debemos escoger un d
 
 Como vemos en la  <a href="#figura-1-casa-creada-con-la-herramienta-homebyme">Figura 1</a>, hemos diseñado un piso con una serie de habitaciones y un pasillo para poder tener varios ambientes sobre los que probar el reconocedor.
 
-![Figura1](https://github.com/BenitezDev/readme/blob/main/media/casa.png)
+![Figura1](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/media/casa.png)
 > ###### Figura 1: Casa creada con la herramienta HomeByMe
 
 <br>
@@ -41,7 +41,7 @@ Tras crear la casa que puede verse en la Figura 1, se han decidido escoger 9 lan
 
 De esta forma, el mapa topológico creado puede verse en la <a href="#figura-2-mapa-topológico">Figura 2</a>. A continuación, para cada landmark se toman una media de 75 fotografías en las que vamos variando ligeramente la perspectiva de cada imagen de manera que podamos recoger una gran parte de los posibles puntos de vista que podría tener el robot al realizar un recorrido a través de ese landmark, así como poder recoger de la manera más óptima posible todos los elementos del landmark para ayudar tanto al reconocedor como a la mejora de nuestro clasificador.
 
-![Figura2](https://github.com/BenitezDev/readme/blob/main/media/mapa.png)
+![Figura2](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/media/mapa.png)
 > ###### Figura 2: Mapa topológico
 
 Para tomar estas imágenes hemos diseñado, a través de la librería OpenCV de Python, un pequeño código que nos permite tomar capturas a nuestro gusto sobre un vídeo de cada landmark en el que movemos la cámara por el entorno para poder captar todas las perspectivas posibles.
@@ -56,7 +56,7 @@ Una vez está diseñado nuestro mapa topológico, en el que tenemos dispuestos t
 K-Nearest Neighbors es un algoritmo basado en instancia de tipo supervisado, el cual puede usarse tanto para clasificación de nuevas imágenes como para predicción. A través de una simple distancia euclídea el algoritmo es capaz de encontrar los K elementos más cercanos a un nuevo elemento que queramos clasificar. Una vez obtiene los K elementos vecinos, el algoritmo reconoce cuántos de esos vecinos pertenecen a las distintas clases en las que podemos clasificar nuestro nuevo elemento, y de acuerdo a una distribución de probabilidad dada, asigna al nuevo elemento una clase, para finalmente almacenarlo y aumentar su dataset de elementos y por tanto su precisión. En nuestro caso, utilizaremos un algoritmo 1-NN donde automáticamente etiquetaremos el landmark al que pertenece cada imagen viendo cual es la imagen vecina más próxima. Para poder medir la distancia entre imágenes, haremos uso del histograma en escala de grises y el histograma en escala RGB que pueden ser tratados como vectores a los que podemos calcular su distancia euclídea con otro vector de su mismo tipo. De esta manera, dada una imagen, esta pertenecerá al landmark de aquella imagen cuyos vectores tengan la mínima distancia, habiéndose comparado las distancias entre todo el dataset disponible.
 
 <p align="center">
-    <img src="https://github.com/BenitezDev/readme/blob/main/media/knn3.png" alt="algoritmo de clasificacion knn">
+    <img src="https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/media/knn3.png" alt="algoritmo de clasificacion knn">
     
 </p>
 <p align="center">
@@ -106,7 +106,7 @@ En la <a href="#tabla-2-resultados-dinámicos-en-escala-de-grises">Tabla 2</a>, 
 
 Podemos ver cómo el porcentaje de acierto ha empeorado considerablemente en comparación a los resultados obtenidos en la prueba estática. Esto se debe principalmente, a que el clasificador estático toma para cada landmark imágenes que se toman desde un punto fijo con pequeñas variaciones en su perspectiva facilitando el trabajo del clasificador, puesto que los histogramas de las imágenes de cada landmark presentan una diferencia muy pequeña. En cambio, al hacer la prueba dinámica, estamos obteniendo imágenes de cada frame del vídeo del recorrido en posiciones distintas a las imágenes tomadas para el dataset, lo que hace que las distancias euclídeas entre las imágenes de la prueba dinámica y del dataset puedan presentar distancias euclídeas notables como para ser confundidas con menos dificultad con landmarks incorrectos.
 
-![Figura5](https://github.com/BenitezDev/readme/blob/main/media/gris.jpeg)
+![Figura5](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/test_videos/dinamic_grayscale_test.png)
 > ###### Figura 5: Comparativa de positivos
 
 Como vemos en la <a href="#figura-5-comparativa-de-positivos">Figura 5</a>, para cada frame la clasificación es bastante correcta en las zonas centrales del recorrido de cada landmark. Esto sucede debido a que en las zonas de cambio de landmark, no se definen con total precisión los límites de cada uno. En nuestro caso, hemos etiquetado cada frame con su landmark correcto según hemos considerado 6 de forma visual, pero el reconocedor puede presentar imprecisiones en estos puntos, sin embargo, como estos falsos positivos dependen de nuestro etiquetado de cada frame, no tiene mucho sentido tenerlos en cuenta.
@@ -115,15 +115,15 @@ Sumado a eso, tenemos que tener en cuenta que al trabajar en un entorno simulado
 
 
 
-![](https://github.com/BenitezDev/readme/blob/main/media/landmark2.PNG)    ![](https://github.com/BenitezDev/readme/blob/main/media/landmark5.PNG)
+![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_2.png)    ![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_5.png)
 
-![](https://github.com/BenitezDev/readme/blob/main/media/landmark7.PNG)    ![](https://github.com/BenitezDev/readme/blob/main/media/landmark6.PNG)
+![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_7.png)    ![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/grayscale_average_histogram/gray_average_histogram_landmark_8.png)
 
 Se ve cómo ambos histogramas son sustancialmente parecidos, pudiendo provocar falsos positivos en el reconocedor. En caso del landmark 7, que se confunde con el 6, pese a que en la prueba estática no fallaba, vemos que en la prueba dinámica si presenta un alto porcentaje de error, debido a que estos dos landmarks corresponden al inicio y final de un pasillo, donde en la prueba dinámica, las imágenes de posiciones intermedias tienen histogramas de poca diferencia entre ambos. A pesar de esto, hemos conseguido obtener resultados razonablemente buenos, estando por encima de un porcentaje de acierto del 80 % en todos los landmarks excepto el landmark 2 y 7 debido a los problemas comentados anteriormente.
 
 Para completar los resultados, adjuntaremos un enlace en el que podremos encontrar un video de la prueba dinámica sobre el recorrido que hemos diseñado dentro del escenario virtual, en que podremos ver en la esquina superior izquierda dos parámetros: el primero será el landmark al que pertenece cada frame según la predicción del reconocedor, y por 7 otro lado, encontramos justo debajo el valor real al que pertenece cada frame según la distribución de landmarks dentro del mapa topológico.
 
-![Prueba dinámica en escala de grises](https://github.com/BenitezDev/readme/blob/main/media/demo_grayscale.gif)
+![Prueba dinámica en escala de grises](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/media/demo_grayscale.gif)
 > Prueba dinámica en escala de grises. Ver en <a href="https://youtu.be/lhlO92adzww">Youtube</a>
 
 
@@ -169,18 +169,18 @@ Por último, en la <a href="#tabla-4-resultados-dinámicos-en-rgb">Tabla 4</a> m
 
 En todos los landmarks, menos el 2 y 7, se obtienen porcentajes de aciertos superiores al 82 %. Asimismo, en los landmarks 2 y 7, a pesar de haber conseguido resultados de nuevo no suficientemente buenos, mejoran ligeramente con respecto a los resultados comentados anteriormente con escala de grises en modo dinámico. Comparando sus histogramas (figuras 11, 12, 13 y 14), vemos cómo esta vez presentan mucha más diferencia, pero de nuevo no la suficiente como para poder obtener un acierto completo. No obstante, si nos fijamos en la escala del eje Y podemos ver cómo el número de píxel medio con cada color básico presentan picos muy similares, lo cual puede explicar los falsos positivos. De forma cualitativa este es un resultado que cabría esperar pues los landmarks 2, y 5 son estancias completamente blancas, y los landmarks 6 y 7 pertenecen al mismo pasillo en los que encontramos una gama cromática prácticamente igual. No obstante, como hemos comentado, se obtiene mayor porcentaje de acierto debido a que ahora en nuestra distancia euclídea participan más dimensiones, de manera que las pequeñas diferencias se hacen más notables.
 
-![Figura10](https://github.com/BenitezDev/readme/blob/main/media/color.jpeg)
+![Figura10](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/test_videos/dinamic_color_test.png)
 > ###### Figura 10: Comparativa de positivos
 
 Para completar nuestros resultados, de la misma manera que el caso anterior adjuntamos un enlace a la prueba dinámica donde se muestra en la parte superior el landmark que predice el reconocedor en cada instante del recorrido junto con el landmark correcto para cada frame de manera que podemos comparar los positivos y los falsos positivos.
 
-![Prueba dinámica en RGB](https://github.com/BenitezDev/readme/blob/main/media/demo_color.gif)
+![Prueba dinámica en RGB](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/media/demo_color.gif)
 > Prueba dinámica en RGB. Ver en <a href="https://youtu.be/Bi1DMtkpbro">Youtube</a>
 
 
-![](https://github.com/BenitezDev/readme/blob/main/media/landmark2RGB.PNG)    ![](https://github.com/BenitezDev/readme/blob/main/media/landmark5RGB.PNG)
+![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/color_average_histogram/average_histogram_landmark_2.png)    ![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/color_average_histogram/average_histogram_landmark_5.png)
 
-![](https://github.com/BenitezDev/readme/blob/main/media/landmark7RGB.PNG)    ![](https://github.com/BenitezDev/readme/blob/main/media/landmark6RGB.PNG)
+![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/color_average_histogram/average_histogram_landmark_7.png)    ![](https://github.com/BenitezDev/Visual-Topological-Maps/blob/main/landmarks_histograms/color_average_histogram/average_histogram_landmark_6.png)
 
 
 ### 3.2 Redes neuronales
